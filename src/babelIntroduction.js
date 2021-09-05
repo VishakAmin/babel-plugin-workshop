@@ -1,3 +1,3 @@
-const sum = () =>{
+const sum = () => {
   return 1 + 2;
 }

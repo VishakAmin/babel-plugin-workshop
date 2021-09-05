@@ -8,10 +8,20 @@ const code =  `
   }
 `
 
+function changeParaName(){
+  return {
+    visitor:{
+      FunctionDeclaration(path, state){
+        path.scope.rename("n", "a")
+      }
+    }
+  }
+}
 
 const output  = babel.transformSync(code,{
   plugins:[
     // Write plugin function here
+    changeParaName()
   ]
 })
 

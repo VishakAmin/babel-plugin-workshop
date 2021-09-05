@@ -7,12 +7,32 @@ const types = require('@babel/types');
 const code = `
  const sum = (a,b) => { 
     console.log(a,b);
-    return 1+ 2;
+    return 1 + 2;
 }
 `
+function convertFunction(){
+  return {
+    visitor:{
+      ArrowFunctionExpression(path, state){
+        const {params} = path.node;
+        const {body} = path.node; 
+        path.replaceWith(
+          types.functionExpression(
+          null,
+          params,
+          body,
+          false,
+          false
+        ))
+      }
+    }
+  }
+}
+
 const output  = babel.transformSync(code,{
   plugins:[
     // Write plugin function here
+    convertFunction()
   ]
 })
 
